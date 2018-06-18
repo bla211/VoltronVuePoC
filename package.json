@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "test": "jest"
   },
   "dependencies": {
     "material-design-icons": "^3.0.1",
@@ -48,6 +49,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-jest": "^2.6.0",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
@@ -64,5 +66,29 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      // tell Jest to handle `*.vue` files
+      "vue"
+    ],
+    "transform": {
+      // process `*.vue` files with `vue-jest`
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+      // process js with `babel-jest`
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    // serializer for snapshots
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-vue"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": ["html", "text-summary"]
+  }
 }
